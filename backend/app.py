@@ -10,7 +10,7 @@ DATABASE = os.path.join(
     "database",
     "events.db"
 )
-
+os.makedirs(os.path.dirname(DATABASE), exist_ok=True)
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
