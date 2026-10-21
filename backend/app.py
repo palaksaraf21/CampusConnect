@@ -38,7 +38,53 @@ def create_table():
             password TEXT NOT NULL
         )
     """)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            category TEXT,
+            date TEXT,
+            description TEXT
+        )
+    """)
 
+    existing_events = conn.execute(
+        "SELECT COUNT(*) FROM events"
+    ).fetchone()[0]
+
+    if existing_events == 0:
+        conn.executemany(
+            """
+            INSERT INTO events (name, category, date, description)
+            VALUES (?, ?, ?, ?)
+            """,
+            [
+                (
+                    "AI & Innovation Workshop",
+                    "TECHNOLOGY",
+                    "15 OCT",
+                    "Learn about artificial intelligence and emerging technologies."
+                ),
+                (
+                    "Campus Cultural Fest",
+                    "CULTURAL",
+                    "20 OCT",
+                    "Experience music, dance, art and performances from students."
+                ),
+                (
+                    "Inter-College Hackathon",
+                    "COMPETITION",
+                    "25 OCT",
+                    "Build innovative solutions and compete with students from different colleges."
+                ),
+                (
+                    "Web Development Workshop 2026",
+                    "TECHNOLOGY",
+                    "30 OCT",
+                    "Learn modern web development technologies and build practical projects."
+                )
+            ]
+        )
     conn.commit()
     conn.close()
 
