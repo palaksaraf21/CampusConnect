@@ -1,0 +1,12 @@
+# Python environment and cache
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# macOS files
+.DS_Store
+
+# Local database and backups
+database/events.db
+backups/

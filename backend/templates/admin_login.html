@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - CampusConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <section class="admin-login-section">
+
+        <div class="admin-login-box">
+
+            <p class="small-title">
+                ADMIN PANEL
+            </p>
+
+            <h1>Admin Login</h1>
+
+            <p>
+                Login to manage event registrations.
+            </p>
+
+            <form method="POST">
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                >
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            {% if error %}
+
+            <p class="login-error">
+                {{ error }}
+            </p>
+
+            {% endif %}
+
+            <a href="/">
+                Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

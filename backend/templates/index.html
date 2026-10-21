@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusConnect - College Events</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">CampusConnect</div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#events">Events</a>
+            <a href="#about">About</a>
+            <a href="/admin">Admin Dashboard</a>
+            <button onclick="showLogin()">Login</button>
+        </nav>
+    </header>
+
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="small-title">COLLEGE EVENT MANAGEMENT & REGISTRATION SYSTEM</p>
+
+            <h1>
+                Discover.
+                <span>Participate.</span>
+                Connect.
+            </h1>
+
+            <p>
+                Discover college events, register easily and stay connected
+                with everything happening on campus.
+            </p>
+
+            <button class="primary-btn" onclick="scrollToEvents()">
+                Explore Events
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section id="events" class="events-section">
+
+        <div class="section-heading">
+
+            <p class="small-title">UPCOMING EVENTS</p>
+
+            <h2>What's happening on campus?</h2>
+
+            <p>
+                Explore upcoming workshops, competitions, cultural events
+                and technical activities.
+            </p>
+
+        </div>
+
+
+        <div class="event-container">
+
+            {% for event in events %}
+
+            <div class="event-card">
+
+                <div class="event-date">
+                    <strong>{{ event.date.split(' ')[0] }}</strong>
+                    <span>{{ event.date.split(' ')[1] }}</span>
+                </div>
+
+                <div class="event-info">
+
+                    <span class="event-type">
+                        {{ event.category }}
+                    </span>
+
+                    <h3>
+                        {{ event.name }}
+                    </h3>
+
+                    <p>
+                        {{ event.description }}
+                    </p>
+
+                    <button onclick="registerEvent('{{ event.name }}')">
+                        Register
+                    </button>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <section id="about" class="about-section">
+
+        <p class="small-title">ABOUT THE PLATFORM</p>
+
+        <h2>Everything about campus events in one place.</h2>
+
+        <p>
+            CampusConnect helps students discover events, register for
+            activities and manage their participation from a single platform.
+        </p>
+
+    </section>
+
+
+    </footer>
+
+
+    <!-- Registration Modal -->
+
+    <div id="registrationModal" class="modal">
+
+        <div class="modal-content">
+
+            <span class="close" onclick="closeRegistration()">&times;</span>
+
+            <h2>Event Registration</h2>
+
+            <p id="selectedEvent"></p>
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Full Name"
+            >
+
+            <input
+                type="email"
+                id="studentEmail"
+                placeholder="Email"
+            >
+
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Student ID"
+            >
+
+            <button onclick="submitRegistration()">
+                Submit Registration
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

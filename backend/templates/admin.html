@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - CampusConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            CampusConnect
+        </div>
+
+        <nav>
+
+            <a href="/">Home</a>
+
+            <span>Admin Dashboard</span>
+
+            <a href="/admin/logout">Logout</a>
+
+        </nav>
+
+    </header>
+
+
+    <section class="admin-section">
+
+        <div class="section-heading">
+
+            <p class="small-title">
+                ADMIN PANEL
+            </p>
+
+            <h1>
+                Event Registrations
+            </h1>
+
+            <p>
+                View students registered for college events.
+            </p>
+
+        </div>
+
+        <div class="admin-stats">
+
+            <div class="stat-card">
+                <h3>{{ registrations|length }}</h3>
+                <p>Total Registrations</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>3</h3>
+                <p>Upcoming Events</p>
+            </div>
+
+        </div>
+
+        <div class="add-event-section">
+
+            <h2>Add New Event</h2>
+
+            <form method="POST" action="/admin/add-event">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Event Name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="category"
+                    placeholder="Category (e.g. TECHNOLOGY)"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="date"
+                    placeholder="Date (e.g. 30 OCT)"
+                    required
+                >
+
+                <textarea
+                    name="description"
+                    placeholder="Event Description"
+                    required
+                ></textarea>
+
+                <button type="submit">
+                    Add Event
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Event Management -->
+
+        <div class="event-management">
+
+            <h2>Manage Events</h2>
+
+            <div class="event-list">
+
+                {% for event in events %}
+
+                <div class="admin-event-card">
+
+                    <div>
+                        <span class="event-type">
+                            {{ event.category }}
+                        </span>
+
+                        <h3>{{ event.name }}</h3>
+
+                        <p>{{ event.description }}</p>
+
+                        <small>{{ event.date }}</small>
+                    </div>
+
+                    <div class="event-actions">
+
+                        <a href="/admin/edit-event/{{ event.id }}" class="edit-event-btn">
+                            Edit
+                        </a>
+
+                        <form method="POST" action="/admin/delete-event/{{ event.id }}">
+                            <button type="submit" class="delete-event-btn">
+                                Delete
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="registration-table">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Event</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Student ID</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for registration in registrations %}
+
+                    <tr>
+
+                        <td>{{ registration.id }}</td>
+
+                        <td>{{ registration.event_name }}</td>
+
+                        <td>{{ registration.student_name }}</td>
+
+                        <td>{{ registration.email }}</td>
+
+                        <td>{{ registration.student_id }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>
